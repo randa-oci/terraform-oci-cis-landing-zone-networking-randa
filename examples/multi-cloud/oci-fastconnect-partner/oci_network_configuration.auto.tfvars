@@ -38,7 +38,7 @@ network_configuration = {
 
               ingress_rules = [
                 {
-                  description = "ingress from Secondary Cloud over TCP22"
+                  description = "ingress from Secondary Cloud over TCP1521"
                   stateless   = false
                   protocol    = "TCP"
                   src         = "172.16.0.0/16"
@@ -47,7 +47,16 @@ network_configuration = {
                   dst_port_max = 1521
                 },
                 {
-                  description  = "Ping from Secondary Cloud and Multicloud Router"
+                  description = "ingress from Secondary Cloud over TCP22 SSH"
+                  stateless   = false
+                  protocol    = "TCP"
+                  src         = "172.16.0.0/16"
+                  src_type    = "CIDR_BLOCK"
+                  dst_port_min = 22
+                  dst_port_max = 22
+                },
+                {
+                  description  = "Ping from Secondary Cloud"
                   stateless    = false
                   protocol     = "ICMP"
                   src          = "172.16.0.0/16"
@@ -59,8 +68,6 @@ network_configuration = {
                   protocol     = "ICMP"
                   src          = "192.168.3.0/30"
                   src_type     = "CIDR_BLOCK"
-                  dst_port_min = 1521
-                  dst_port_max = 1521
                 },
               ]
             }
@@ -78,7 +85,7 @@ network_configuration = {
                 },
                 drg-route-partner = {
                   network_entity_key = "DRG-VISION-KEY"
-                  description        = "Route to Connetcivity Partner via DRG"
+                  description        = "Multicloud Router"
                   destination        = "192.168.3.0/30"
                   destination_type   = "CIDR_BLOCK"
                 }
